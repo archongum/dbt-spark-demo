@@ -30,6 +30,8 @@ docker-compose up -d
 ## Dagster + DBT
 
 ```sh
+cd my-dagster-project
+pip install -e ".[dev]"
 dagster dev
 ```
 
