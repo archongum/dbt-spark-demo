@@ -1,6 +1,10 @@
 # dbt-spark-demo
 
-Setup steps:
+Use GitHub Codespaces
+
+Or
+
+Local setup steps:
 1. Install requirements (Linux)
 2. Deploy spark server
 3. Run dagster web ui
