@@ -33,8 +33,6 @@ models:
   dbt_demo:
     +pre-hook:
       - |
-        create schema if not exists default;
-      - |
         drop table if exists default.ods_orders;
       - | 
         create table if not exists default.ods_orders as

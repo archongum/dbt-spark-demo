@@ -1,7 +1,7 @@
 {
     //"image": "python:3.10",
     "postCreateCommand": {
-        "pip_config": "pip install black"
+        "init_script": "sh .devcontainer/init.sh"
     },
     "remoteUser": "root",
     "customizations": {

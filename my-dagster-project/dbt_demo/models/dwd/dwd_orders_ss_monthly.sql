@@ -1,5 +1,8 @@
 {{
     config(
+        pre_hook=[
+            "set hive.exec.dynamic.partition.mode=nonstrict;"
+        ],
         materialized='incremental',
         incremental_strategy='insert_overwrite',
         partition_by=['status']

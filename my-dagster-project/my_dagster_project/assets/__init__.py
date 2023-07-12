@@ -1,4 +1,3 @@
-import pandas as pd
 from dagster import file_relative_path, asset
 from dagster_dbt import load_assets_from_dbt_project
 

@@ -23,7 +23,7 @@ services:
       - --conf
       - spark.hadoop.fs.s3a.connection.ssl.enabled=false
       - --conf
-      - spark.sql.warehouse.dir=s3a://warehouse/hive
+      - spark.sql.warehouse.dir=s3a://warehouse/spark
       - --conf
       - spark.hadoop.fs.s3a.aws.credentials.provider=org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider
       - --conf
@@ -31,13 +31,13 @@ services:
       - --conf
       - spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
       - --conf
-      - spark.sql.catalog.s3=org.apache.iceberg.spark.SparkCatalog
+      - spark.sql.catalog.spark_catalog=org.apache.iceberg.spark.SparkSessionCatalog
       - --conf
-      - spark.sql.catalog.s3.type=hadoop
+      - spark.sql.catalog.spark_catalog.type=hadoop
       - --conf
-      - spark.sql.catalog.s3.warehouse=s3a://warehouse/s3
+      - spark.sql.catalog.spark_catalog.warehouse=s3a://warehouse/spark
       - --conf
-      - spark.sql.defaultCatalog=s3
+      - spark.sql.defaultCatalog=spark_catalog
 
   minio:
     image: minio/minio
