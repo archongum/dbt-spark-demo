@@ -1,6 +1,6 @@
 # dbt-spark-demo
 
-Use GitHub Codespaces
+Use GitHub Codespaces / VS Code Remote Dev Toolkit
 
 Or
 
