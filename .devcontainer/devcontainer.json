@@ -1,16 +1,21 @@
 {
-    "image": "python:3.10",
+    //"image": "python:3.10",
     "postCreateCommand": {
-        "pip_config": "pip config --global set global.index-url https://mirrors.aliyun.com/pypi/simple && pip install black"
+        "pip_config": "pip install black"
     },
     "remoteUser": "root",
     "customizations": {
         "vscode": {
             "settings": {
+                "python.formatting.provider": "black",
+                "[python]": {
+                    "editor.defaultFormatter": "ms-python.black-formatter",
+                    "editor.formatOnSave": true,
+                    "editor.formatOnType": true
+                }
             },
             "extensions": [
                 "ms-python.python",
-                "ms-toolsai.jupyter",
                 "ms-python.vscode-pylance",
                 "ms-python.pylint",
                 "ms-python.black-formatter"

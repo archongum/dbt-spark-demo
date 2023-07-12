@@ -1,0 +1,69 @@
+version: "3"
+services:
+  sts:
+    image: archongum/spark:3.3.2-hadoop3
+    restart: always
+    depends_on:
+      - minio
+    ports:
+      - 10000:10000
+      - 4040:4040
+    entrypoint: /entrypoint-sts.sh
+    command:
+      - --master
+      - local[2]
+      - --conf
+      - spark.hadoop.fs.s3a.access.key=minioadmin
+      - --conf
+      - spark.hadoop.fs.s3a.secret.key=minioadmin
+      - --conf
+      - spark.hadoop.fs.s3a.endpoint=http://minio:9000
+      - --conf
+      - spark.hadoop.fs.s3a.path.style.access=true
+      - --conf
+      - spark.hadoop.fs.s3a.connection.ssl.enabled=false
+      - --conf
+      - spark.sql.warehouse.dir=s3a://warehouse/hive
+      - --conf
+      - spark.hadoop.fs.s3a.aws.credentials.provider=org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider
+      - --conf
+      - spark.hadoop.fs.s3.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
+      - --conf
+      - spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
+      - --conf
+      - spark.sql.catalog.s3=org.apache.iceberg.spark.SparkCatalog
+      - --conf
+      - spark.sql.catalog.s3.type=hadoop
+      - --conf
+      - spark.sql.catalog.s3.warehouse=s3a://warehouse/s3
+      - --conf
+      - spark.sql.defaultCatalog=s3
+
+  minio:
+    image: minio/minio
+    restart: always
+    ports:
+      - 9000:9000
+      - 9001:9001
+    command:
+      - server
+      - /data
+      - --console-address
+      - ":9001"
+    volumes:
+      - ./data/minio:/data
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+  mc:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      until (/usr/bin/mc config host add minio http://minio:9000 minioadmin minioadmin) do echo '...waiting...' && sleep 1; done;
+      /usr/bin/mc rm -r --force minio/warehouse;
+      /usr/bin/mc mb minio/warehouse;
+      /usr/bin/mc policy set public minio/warehouse;
+      tail -f /dev/null
+      "

@@ -1,0 +1,11 @@
+dbt_demo:
+  target: dev
+  outputs:
+    dev:
+      type: spark
+      method: thrift
+      host: 127.0.0.1
+      port: 10000
+      schema: default
+      user: spark
+      use_ssl: false
