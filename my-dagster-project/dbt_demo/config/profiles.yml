@@ -7,5 +7,7 @@ dbt_demo:
       host: 127.0.0.1
       port: 10000
       schema: default
+      auth: CUSTOM
       user: spark
+      password: spark_c3Bhcms=
       use_ssl: false

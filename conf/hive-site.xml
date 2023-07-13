@@ -1,0 +1,10 @@
+<configuration>
+    <property>
+        <name>hive.server2.authentication</name>
+        <value>CUSTOM</value>
+    </property>
+    <property>
+        <name>hive.server2.custom.authentication.class</name>
+        <value>com.github.archongum.hiveserver.custom.auth.authenticator.HS2SimpleAuthenticator</value>
+    </property>
+</configuration>

@@ -40,3 +40,9 @@ dagster dev
 ```
 
 Open Web UI: http://127.0.0.1:3000
+
+## Misc
+
+### Disable auth
+
+Disable auth by removing `hive-site.xml` mount of `sts` services.

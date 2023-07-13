@@ -8,6 +8,8 @@ services:
     ports:
       - 10000:10000
       - 4040:4040
+    volumes:
+      - ./conf/hive-site.xml:/etc/spark/hive-site.xml
     entrypoint: /entrypoint-sts.sh
     command:
       - --master
@@ -51,7 +53,7 @@ services:
       - --console-address
       - ":9001"
     volumes:
-      - ./data/minio:/data
+      - ./docker-volume/minio:/data
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
